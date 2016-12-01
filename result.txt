@@ -92,3 +92,33 @@ throughput: 4.39062
 ---------------------------------------------------
 ---------------------------------------------------
 ---------------------------------------------------
+no hidden terminal, sta node of 3, under 802.11b, cbrate of 10Mbps: 
+Total throughput: 1.51178 Mbps
+------------------------------------------------
+no hidden terminal, sta node of 3, under 802.11b, cbrate of 20Mbps: 
+Total throughput: 1.50289 Mbps
+------------------------------------------------
+no hidden terminal, sta node of 3, under 802.11b, cbrate of 30Mbps: 
+Total throughput: 1.50162 Mbps
+------------------------------------------------
+no hidden terminal, sta node of 3, under 802.11b, cbrate of 40Mbps: 
+Total throughput: 1.51178 Mbps
+------------------------------------------------
+no hidden terminal, sta node of 3, under 802.11b, cbrate of 50Mbps: 
+Total throughput: 1.51939 Mbps
+------------------------------------------------
+no hidden terminal, sta node of 3, under 802.11g, cbrate of 10Mbps: 
+Total throughput: 1.38611 Mbps
+------------------------------------------------
+no hidden terminal, sta node of 3, under 802.11g, cbrate of 20Mbps: 
+Total throughput: 1.40261 Mbps
+------------------------------------------------
+no hidden terminal, sta node of 3, under 802.11g, cbrate of 30Mbps: 
+Total throughput: 1.3823 Mbps
+------------------------------------------------
+no hidden terminal, sta node of 3, under 802.11g, cbrate of 40Mbps: 
+Total throughput: 1.37342 Mbps
+------------------------------------------------
+no hidden terminal, sta node of 3, under 802.11g, cbrate of 50Mbps: 
+Total throughput: 1.39119 Mbps
+------------------------------------------------
