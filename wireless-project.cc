@@ -46,31 +46,74 @@ double experiment (bool enableCtsRts, uint32_t numWifiSta, enum ns3::WifiPhyStan
 	if (standard == WIFI_PHY_STANDARD_80211a)	// different remote standards needs to be set differently, confused part
 	{
   		wifi.SetRemoteStationManager ("ns3::ConstantRateWifiManager",
-        		                        "DataMode",StringValue ("OfdmRate6Mbps"),
-        	        	                "ControlMode",StringValue ("OfdmRate6Mbps"));
+        		                        "DataMode",StringValue ("OfdmRate54Mbps"),
+        	        	                "ControlMode",StringValue ("OfdmRate54Mbps"));
 	}
 	else if (standard == WIFI_PHY_STANDARD_80211n_2_4GHZ)
-  {
-      wifi.SetRemoteStationManager ("ns3::ConstantRateWifiManager",
-                                    "DataMode", StringValue ("OfdmRate54Mbps"),
-                                    "ControlMode", StringValue ("OfdmRate54Mbps"));
-  }
-  else
+  	{
+      		wifi.SetRemoteStationManager ("ns3::ConstantRateWifiManager",
+                                    "DataMode", StringValue ("OfdmRate65MbpsBW20MHz"),
+                                    "ControlMode", StringValue ("OfdmRate65MbpsBW20MHz"));
+  	}
+  	else if (standard == WIFI_PHY_STANDARD_80211b)
 	{
 		wifi.SetRemoteStationManager ("ns3::ConstantRateWifiManager",
-                                  "DataMode",StringValue ("DsssRate2Mbps"),
-                                  "ControlMode",StringValue ("DsssRate2Mbps"));
+                                  "DataMode",StringValue ("DsssRate11Mbps"),
+                                  "ControlMode",StringValue ("DsssRate11Mbps"));
 	}
+	else
+		wifi.SetRemoteStationManager ("ns3::ConstantRateWifiManager",
+                                                "DataMode",StringValue ("ErpOfdmRate54Mbps"),
+                                                "ControlMode",StringValue ("ErpOfdmRate54Mbps"));
   	Ssid ssid = Ssid("wifi-default");
 
-  	NqosWifiMacHelper wifiMac = NqosWifiMacHelper::Default();
+	if (standard == WIFI_PHY_STANDARD_80211n_2_4GHZ)
+	{
+		HtWifiMacHelper wifiMac = HtWifiMacHelper::Default();
+		wifiMac.SetType ("ns3::StaWifiMac", "Ssid", SsidValue(ssid), "ActiveProbing", BooleanValue(false)); // use stawifi
+        	NetDeviceContainer staDevices;
+        	staDevices = wifi.Install (wifiPhy, wifiMac, wifiStaNodes);
+        	wifiMac.SetType("ns3::ApWifiMac", "Ssid", SsidValue(ssid), "BeaconGeneration", BooleanValue(true));
+        	NetDeviceContainer apDevices;
+        	apDevices = wifi.Install(wifiPhy, wifiMac, wifiAPNodes);
+		
+		InternetStackHelper stack;
+        	stack.Install(wifiStaNodes);
+        	stack.Install(wifiAPNodes);
 
+		Ipv4AddressHelper ipv4;
+        	ipv4.SetBase ("10.0.0.0", "255.0.0.0");
+        	ipv4.Assign (staDevices);
+        	ipv4.Assign(apDevices);
+	}
+	else
+	{
+  		NqosWifiMacHelper wifiMac = NqosWifiMacHelper::Default();
+		wifiMac.SetType ("ns3::StaWifiMac", "Ssid", SsidValue(ssid), "ActiveProbing", BooleanValue(false)); // use stawifi
+        	NetDeviceContainer staDevices;
+        	staDevices = wifi.Install (wifiPhy, wifiMac, wifiStaNodes);
+        	wifiMac.SetType("ns3::ApWifiMac", "Ssid", SsidValue(ssid), "BeaconGeneration", BooleanValue(true));
+        	NetDeviceContainer apDevices;
+        	apDevices = wifi.Install(wifiPhy, wifiMac, wifiAPNodes);
+		
+		InternetStackHelper stack;
+        	stack.Install(wifiStaNodes);
+        	stack.Install(wifiAPNodes);
+
+		Ipv4AddressHelper ipv4;
+        	ipv4.SetBase ("10.0.0.0", "255.0.0.0");
+        	ipv4.Assign (staDevices);
+        	ipv4.Assign(apDevices);
+	}
+
+	/*
   	wifiMac.SetType ("ns3::StaWifiMac", "Ssid", SsidValue(ssid), "ActiveProbing", BooleanValue(false)); // use stawifi
   	NetDeviceContainer staDevices;
   	staDevices = wifi.Install (wifiPhy, wifiMac, wifiStaNodes);
   	wifiMac.SetType("ns3::ApWifiMac", "Ssid", SsidValue(ssid), "BeaconGeneration", BooleanValue(true));
   	NetDeviceContainer apDevices;
   	apDevices = wifi.Install(wifiPhy, wifiMac, wifiAPNodes);
+	*/
 
   	// Add mobility on AP node
   	MobilityHelper mobility;
@@ -106,9 +149,9 @@ double experiment (bool enableCtsRts, uint32_t numWifiSta, enum ns3::WifiPhyStan
   		//std::cout<<"Node "<<k<<" cordinates: x = "<<pos.x<<", y = "<<pos.y<<"\n";
   	}
   	// Install protocol stack
-  	InternetStackHelper stack;
+  	/*InternetStackHelper stack;
   	stack.Install(wifiStaNodes);
-  	stack.Install(wifiAPNodes);
+  	stack.Install(wifiAPNodes);*/
   	// uncomment the following to have athstats output
   	// AthstatsHelper athstats;
   	// athstats.EnableAthstats(enableCtsRts ? "rtscts-athstats-node" : "basic-athstats-node" , nodes);
@@ -117,11 +160,11 @@ double experiment (bool enableCtsRts, uint32_t numWifiSta, enum ns3::WifiPhyStan
   	// wifiPhy.EnablePcap (enableCtsRts ? "rtscts-pcap-node" : "basic-pcap-node" , nodes);
 
   	// 6. Install TCP/IP stack & assign IP addresses
-  	Ipv4AddressHelper ipv4;
+  	/*Ipv4AddressHelper ipv4;
   	ipv4.SetBase ("10.0.0.0", "255.0.0.0");
   	ipv4.Assign (staDevices);
   	ipv4.Assign(apDevices);
-
+	*/
   	Ptr<Node> apn = wifiAPNodes.Get(0);
   	Ptr<Ipv4> ipv4add = apn->GetObject<Ipv4>();
   	Ipv4Address APaddr = ipv4add->GetAddress(1,0).GetLocal();
@@ -223,7 +266,7 @@ int main (int argc, char **argv)
 		std::cout << "file is open\n";
 	double a;
 
-	/*std::cout << "no hidden terminal, sta node of 1, under 802.11a, cbrate of 20Mbps, explore saturation: \n" << std::flush;
+	std::cout << "no hidden terminal, sta node of 1, under 802.11a, cbrate of 20Mbps, explore saturation: \n" << std::flush;
 	result << "no hidden terminal, sta node of 1, under 802.11a, cbrate of 20Mbps, explore saturation: \n";
 	a = experiment (false, 1, WIFI_PHY_STANDARD_80211a, false, "20Mbps");
         result << "throughput: " << a << "\n";
@@ -314,6 +357,7 @@ int main (int argc, char **argv)
 
 	result << "---------------------------------------------------\n";
 
+
 	std::cout << "no hidden terminal, sta node of 3, under 802.11b, cbrate of 20Mbps: \n" << std::flush;
         result << "no hidden terminal, sta node of 3, under 802.11b, cbrate of 20Mbps: \n";
         a = experiment (false, 3, WIFI_PHY_STANDARD_80211b, false, "20Mbps");
@@ -339,7 +383,7 @@ int main (int argc, char **argv)
         std::cout << "------------------------------------------------\n";
 
 	result << "---------------------------------------------------\n";
-
+	
 	std::cout << "no hidden terminal, sta node of 3, under 802.11g, cbrate of 20Mbps: \n" << std::flush;
         result << "no hidden terminal, sta node of 3, under 802.11g, cbrate of 20Mbps: \n";
         a = experiment (false, 3, WIFI_PHY_STANDARD_80211g, false, "20Mbps");
@@ -361,6 +405,33 @@ int main (int argc, char **argv)
         std::cout << "no hidden terminal, sta node of 12, under 802.11g, cbrate of 20Mbps: \n" << std::flush;
         result << "no hidden terminal, sta node of 12, under 802.11g, cbrate of 20Mbps: \n";
         a = experiment (false, 12, WIFI_PHY_STANDARD_80211g, false, "20Mbps");
+        result << "throughput: " << a << "\n";
+        std::cout << "------------------------------------------------\n";
+
+	result << "---------------------------------------------------\n";
+
+	std::cout << "no hidden terminal, sta node of 3, under 802.11n cbrate of 20Mbps: \n" << std::flush;
+        result << "no hidden terminal, sta node of 3, under 802.11n, cbrate of 20Mbps: \n";
+        a = experiment (false, 3, WIFI_PHY_STANDARD_80211n_2_4GHZ, false, "20Mbps");
+        result << "throughput: " << a << "\n";
+        std::cout << "------------------------------------------------\n";
+
+        std::cout << "no hidden terminal, sta node of 6, under 802.11n, cbrate of 20Mbps: \n" << std::flush;
+        result << "no hidden terminal, sta node of 6, under 802.11n, cbrate of 20Mbps: \n";
+        a = experiment (false, 6, WIFI_PHY_STANDARD_80211n_2_4GHZ, false, "20Mbps");
+        result << "throughput: " << a << "\n";
+        std::cout << "------------------------------------------------\n";
+
+
+        std::cout << "no hidden terminal, sta node of 9, under 802.11n, cbrate of 20Mbps: \n" << std::flush;
+        result << "no hidden terminal, sta node of 9, under 802.11n, cbrate of 20Mbps: \n";
+        a = experiment (false, 9, WIFI_PHY_STANDARD_80211n_2_4GHZ, false, "20Mbps");
+        result << "throughput: " << a << "\n";
+        std::cout << "------------------------------------------------\n";
+
+        std::cout << "no hidden terminal, sta node of 12, under 802.11n, cbrate of 20Mbps: \n" << std::flush;
+        result << "no hidden terminal, sta node of 12, under 802.11n, cbrate of 20Mbps: \n";
+        a = experiment (false, 12, WIFI_PHY_STANDARD_80211n_2_4GHZ, false, "20Mbps");
         result << "throughput: " << a << "\n";
         std::cout << "------------------------------------------------\n";
 
@@ -442,57 +513,70 @@ int main (int argc, char **argv)
         a = experiment (false, 12, WIFI_PHY_STANDARD_80211g, true, "20Mbps");
         result << "throughput: " << a << "\n";
         std::cout << "------------------------------------------------\n";
-
-        result << "---------------------------------------------------\n";
-	result << "---------------------------------------------------\n";
-  */
-	std::cout << "with hidden terminal, sta node of 3, under 802.11n cbrate of 10Mbps: \n" << std::flush;
-        result << "no hidden terminal, sta node of 3, under 802.11g, cbrate of 10Mbps: \n";
-        a = experiment (false, 3, WIFI_PHY_STANDARD_80211n_2_4GHZ, false, "10Mbps");
-        result << "throughput: " << a << "\n";
-        std::cout << "------------------------------------------------\n";
-
-	std::cout << "with hidden terminal, sta node of 3, under 802.11n, cbrate of 20Mbps: \n" << std::flush;
-        result << "no hidden terminal, sta node of 3, under 802.11g, cbrate of 20Mbps: \n";
-        a = experiment (false, 3, WIFI_PHY_STANDARD_80211n_2_4GHZ, false, "20Mbps");
-        result << "throughput: " << a << "\n";
-        std::cout << "------------------------------------------------\n";
-
-
-	std::cout << "with hidden terminal, sta node of 3, under 802.11n, cbrate of 30Mbps: \n" << std::flush;
-        result << "no hidden terminal, sta node of 3, under 802.11g, cbrate of 30Mbps: \n";
-        a = experiment (false, 3, WIFI_PHY_STANDARD_80211n_2_4GHZ, false, "30Mbps");
-        result << "throughput: " << a << "\n";
-        std::cout << "------------------------------------------------\n";
-
-	std::cout << "with hidden terminal, sta node of 3, under 802.11n, cbrate of 40Mbps: \n" << std::flush;
-        result << "no hidden terminal, sta node of 3, under 802.11g, cbrate of 40Mbps: \n";
-        a = experiment (false, 3, WIFI_PHY_STANDARD_80211n_2_4GHZ, false, "40Mbps");
-        result << "throughput: " << a << "\n";
-        std::cout << "------------------------------------------------\n";
-
-	std::cout << "with hidden terminal, sta node of 3, under 802.11n, cbrate of 50Mbps: \n" << std::flush;
-        result << "no hidden terminal, sta node of 3, under 802.11g, cbrate of 50Mbps: \n";
-        a = experiment (false, 3, WIFI_PHY_STANDARD_80211n_2_4GHZ, false, "50Mbps");
-        result << "throughput: " << a << "\n";
-        std::cout << "------------------------------------------------\n";
-	result << "---------------------------------------------------\n";
-	result << "---------------------------------------------------\n";
+  
 	result << "---------------------------------------------------\n";
 
-	// std::cout << "no hidden terminal, sta node of 3, under 802.11n:\n" << std::flush; no definition on
-        // experiment (false, 3, WIFI_PHY_STANDARD_80211n);
-        // std::cout << "------------------------------------------------\n";
-        // std::cout << "no hidden terminal, sta node of 6, under 802.11n:\n" << std::flush;
-        // experiment (false, 6, WIFI_PHY_STANDARD_80211n);
-        // std::cout << "------------------------------------------------\n";
-        // std::cout << "no hidden terminal, sta node of 9, under 802.11n:\n" << std::flush;
-        // experiment (false, 9, WIFI_PHY_STANDARD_80211n);
-        // std::cout << "------------------------------------------------\n";
-        // std::cout << "no hidden terminal, sta node of 12, under 802.11n:\n" << std::flush;
-        // experiment (false, 12, WIFI_PHY_STANDARD_80211n);
-        // std::cout << "------------------------------------------------\n";
-        // std::cout << "------------------------------------------------\n";
+	std::cout << "have hidden terminal, sta node of 3, under 802.11n cbrate of 20Mbps: \n" << std::flush;
+        result << "have hidden terminal, sta node of 3, under 802.11n, cbrate of 20Mbps: \n";
+        a = experiment (false, 3, WIFI_PHY_STANDARD_80211n_2_4GHZ, true, "20Mbps");
+        result << "throughput: " << a << "\n";
+        std::cout << "------------------------------------------------\n";
+
+	std::cout << "have hidden terminal, sta node of 6, under 802.11n, cbrate of 20Mbps: \n" << std::flush;
+        result << "have hidden terminal, sta node of 6, under 802.11n, cbrate of 20Mbps: \n";
+        a = experiment (false, 6, WIFI_PHY_STANDARD_80211n_2_4GHZ, true, "20Mbps");
+        result << "throughput: " << a << "\n";
+        std::cout << "------------------------------------------------\n";
+
+
+	std::cout << "have hidden terminal, sta node of 9, under 802.11n, cbrate of 20Mbps: \n" << std::flush;
+        result << "have hidden terminal, sta node of 9, under 802.11n, cbrate of 20Mbps: \n";
+        a = experiment (false, 9, WIFI_PHY_STANDARD_80211n_2_4GHZ, true, "20Mbps");
+        result << "throughput: " << a << "\n";
+        std::cout << "------------------------------------------------\n";
+
+	std::cout << "have hidden terminal, sta node of 12, under 802.11n, cbrate of 20Mbps: \n" << std::flush;
+        result << "have hidden terminal, sta node of 12, under 802.11n, cbrate of 20Mbps: \n";
+        a = experiment (false, 12, WIFI_PHY_STANDARD_80211n_2_4GHZ, true, "20Mbps");
+        result << "throughput: " << a << "\n";
+        std::cout << "------------------------------------------------\n";
+
+	result << "---------------------------------------------------\n";
+
+	std::cout << "no hidden terminal, sta node of 3, under 802.11a, cbrate of 10Mbps: \n" << std::flush;
+        result << "no hidden terminal, sta node of 3, under 802.11a, cbrate of 10Mbps: \n";
+        a = experiment (false, 3, WIFI_PHY_STANDARD_80211a, false, "10Mbps");
+        result << "throughput: " << a << "\n";
+        std::cout << "------------------------------------------------\n";
+
+	std::cout << "no hidden terminal, sta node of 3, under 802.11a, cbrate of 20Mbps: \n" << std::flush;
+        result << "no hidden terminal, sta node of 3, under 802.11a, cbrate of 20Mbps: \n";
+        a = experiment (false, 3, WIFI_PHY_STANDARD_80211a, false, "20Mbps");
+        result << "throughput: " << a << "\n";
+        std::cout << "------------------------------------------------\n";
+
+
+	std::cout << "no hidden terminal, sta node of 3, under 802.11a, cbrate of 30Mbps: \n" << std::flush;
+        result << "no hidden terminal, sta node of 3, under 802.11a, cbrate of 30Mbps: \n";
+        a = experiment (false, 3, WIFI_PHY_STANDARD_80211a, false, "30Mbps");
+        result << "throughput: " << a << "\n";
+        std::cout << "------------------------------------------------\n";
+
+	std::cout << "no hidden terminal, sta node of 3, under 802.11a, cbrate of 40Mbps: \n" << std::flush;
+        result << "no hidden terminal, sta node of 3, under 802.11a, cbrate of 40Mbps: \n";
+        a = experiment (false, 3, WIFI_PHY_STANDARD_80211a, false, "40Mbps");
+        result << "throughput: " << a << "\n";
+        std::cout << "------------------------------------------------\n";
+
+	std::cout << "no hidden terminal, sta node of 3, under 802.11a, cbrate of 50Mbps: \n" << std::flush;
+        result << "no hidden terminal, sta node of 3, under 802.11a, cbrate of 50Mbps: \n";
+        a = experiment (false, 3, WIFI_PHY_STANDARD_80211a, false, "50Mbps");
+        result << "throughput: " << a << "\n";
+        std::cout << "------------------------------------------------\n";
+	result << "---------------------------------------------------\n";
+	result << "---------------------------------------------------\n";
+	result << "---------------------------------------------------\n";
+
 	result.close();
 	return 0;
 }
