@@ -96,6 +96,7 @@ throughput: 11.5636
 have hidden terminal, sta node of 12, under 802.11n, cbrate of 20Mbps: 
 throughput: 10.1128
 ---------------------------------------------------
+CBR Rate Experiment: 
 no hidden terminal, sta node of 3, under 802.11a, cbrate of 10Mbps: 
 throughput: 24.4727
 no hidden terminal, sta node of 3, under 802.11a, cbrate of 20Mbps: 
@@ -107,5 +108,81 @@ throughput: 24.8485
 no hidden terminal, sta node of 3, under 802.11a, cbrate of 50Mbps: 
 throughput: 24.7457
 ---------------------------------------------------
+no hidden terminal, sta node of 3, under 802.11b, cbrate of 10Mbps: 
+throughput: 5.52287
+no hidden terminal, sta node of 3, under 802.11b, cbrate of 20Mbps: 
+throughput: 5.48733
+no hidden terminal, sta node of 3, under 802.11b, cbrate of 30Mbps: 
+throughput: 5.50129
+no hidden terminal, sta node of 3, under 802.11b, cbrate of 40Mbps: 
+throughput: 5.48225
+no hidden terminal, sta node of 3, under 802.11b, cbrate of 50Mbps: 
+throughput: 5.4099
+---------------------------------------------------
+no hidden terminal, sta node of 3, under 802.11g, cbrate of 10Mbps: 
+throughput: 19.4081
+no hidden terminal, sta node of 3, under 802.11g, cbrate of 20Mbps: 
+throughput: 19.4995
+no hidden terminal, sta node of 3, under 802.11g, cbrate of 30Mbps: 
+throughput: 19.3802
+no hidden terminal, sta node of 3, under 802.11g, cbrate of 40Mbps: 
+throughput: 19.5084
+no hidden terminal, sta node of 3, under 802.11g, cbrate of 50Mbps: 
+throughput: 19.6874
+---------------------------------------------------
+no hidden terminal, sta node of 3, under 802.11n, cbrate of 10Mbps: 
+throughput: 19.2634
+no hidden terminal, sta node of 3, under 802.11g, cbrate of 20Mbps: 
+throughput: 18.7341
+no hidden terminal, sta node of 3, under 802.11n, cbrate of 30Mbps: 
+throughput: 19.0197
+no hidden terminal, sta node of 3, under 802.11n, cbrate of 40Mbps: 
+throughput: 19.0527
+no hidden terminal, sta node of 3, under 802.11n, cbrate of 50Mbps: 
+throughput: 19.1428
+---------------------------------------------------
+have hidden terminal, sta node of 3, under 802.11a, cbrate of 10Mbps: 
+throughput: 15.9758
+have hidden terminal, sta node of 3, under 802.11a, cbrate of 20Mbps: 
+throughput: 16.1751
+have hidden terminal, sta node of 3, under 802.11a, cbrate of 30Mbps: 
+throughput: 16.1434
+have hidden terminal, sta node of 3, under 802.11a, cbrate of 40Mbps: 
+throughput: 16.2081
+have hidden terminal, sta node of 3, under 802.11a, cbrate of 50Mbps: 
+throughput: 16.2627
+---------------------------------------------------
+have hidden terminal, sta node of 3, under 802.11b, cbrate of 10Mbps: 
+throughput: 3.14541
+have hidden terminal, sta node of 3, under 802.11b, cbrate of 20Mbps: 
+throughput: 3.13145
+have hidden terminal, sta node of 3, under 802.11b, cbrate of 30Mbps: 
+throughput: 3.45132
+have hidden terminal, sta node of 3, under 802.11b, cbrate of 40Mbps: 
+throughput: 5.07479
+have hidden terminal, sta node of 3, under 802.11b, cbrate of 50Mbps: 
+throughput: 3.06544
+---------------------------------------------------
+have hidden terminal, sta node of 3, under 802.11g, cbrate of 10Mbps: 
+throughput: 14.6227
+have hidden terminal, sta node of 3, under 802.11g, cbrate of 20Mbps: 
+throughput: 14.5694
+have hidden terminal, sta node of 3, under 802.11g, cbrate of 30Mbps: 
+throughput: 15.0353
+have hidden terminal, sta node of 3, under 802.11g, cbrate of 40Mbps: 
+throughput: 14.6836
+have hidden terminal, sta node of 3, under 802.11g, cbrate of 50Mbps: 
+throughput: 14.6215
+---------------------------------------------------
+have hidden terminal, sta node of 3, under 802.11n, cbrate of 10Mbps: 
+throughput: 14.2965
+have hidden terminal, sta node of 3, under 802.11g, cbrate of 20Mbps: 
+throughput: 14.4298
+have hidden terminal, sta node of 3, under 802.11n, cbrate of 30Mbps: 
+throughput: 14.4628
+have hidden terminal, sta node of 3, under 802.11n, cbrate of 40Mbps: 
+throughput: 14.4577
+have hidden terminal, sta node of 3, under 802.11n, cbrate of 50Mbps: 
+throughput: 14.412
 ---------------------------------------------------
 ---------------------------------------------------

@@ -543,6 +543,8 @@ int main (int argc, char **argv)
 
 	result << "---------------------------------------------------\n";
 
+	result <<"CBR Rate Experiment: \n";
+
 	std::cout << "no hidden terminal, sta node of 3, under 802.11a, cbrate of 10Mbps: \n" << std::flush;
         result << "no hidden terminal, sta node of 3, under 802.11a, cbrate of 10Mbps: \n";
         a = experiment (false, 3, WIFI_PHY_STANDARD_80211a, false, "10Mbps");
@@ -574,6 +576,229 @@ int main (int argc, char **argv)
         result << "throughput: " << a << "\n";
         std::cout << "------------------------------------------------\n";
 	result << "---------------------------------------------------\n";
+
+	std::cout << "no hidden terminal, sta node of 3, under 802.11b, cbrate of 10Mbps: \n" << std::flush;
+	result << "no hidden terminal, sta node of 3, under 802.11b, cbrate of 10Mbps: \n";
+        a = experiment (false, 3, WIFI_PHY_STANDARD_80211b, false, "10Mbps");
+        result << "throughput: " << a << "\n";
+        std::cout << "------------------------------------------------\n";
+
+        std::cout << "no hidden terminal, sta node of 3, under 802.11b, cbrate of 20Mbps: \n" << std::flush;
+        result << "no hidden terminal, sta node of 3, under 802.11b, cbrate of 20Mbps: \n";
+        a = experiment (false, 3, WIFI_PHY_STANDARD_80211b, false, "20Mbps");
+        result << "throughput: " << a << "\n";
+        std::cout << "------------------------------------------------\n";
+
+
+        std::cout << "no hidden terminal, sta node of 3, under 802.11b, cbrate of 30Mbps: \n" << std::flush;
+        result << "no hidden terminal, sta node of 3, under 802.11b, cbrate of 30Mbps: \n";
+        a = experiment (false, 3, WIFI_PHY_STANDARD_80211b, false, "30Mbps");
+        result << "throughput: " << a << "\n";
+        std::cout << "------------------------------------------------\n";
+
+        std::cout << "no hidden terminal, sta node of 3, under 802.11b, cbrate of 40Mbps: \n" << std::flush;
+        result << "no hidden terminal, sta node of 3, under 802.11b, cbrate of 40Mbps: \n";
+        a = experiment (false, 3, WIFI_PHY_STANDARD_80211b, false, "40Mbps");
+        result << "throughput: " << a << "\n";
+        std::cout << "------------------------------------------------\n";
+
+        std::cout << "no hidden terminal, sta node of 3, under 802.11b, cbrate of 50Mbps: \n" << std::flush;
+        result << "no hidden terminal, sta node of 3, under 802.11b, cbrate of 50Mbps: \n";
+        a = experiment (false, 3, WIFI_PHY_STANDARD_80211b, false, "50Mbps");
+        result << "throughput: " << a << "\n";
+        std::cout << "------------------------------------------------\n";
+        result << "---------------------------------------------------\n";
+
+	std::cout << "no hidden terminal, sta node of 3, under 802.11g, cbrate of 10Mbps: \n" << std::flush;
+        result << "no hidden terminal, sta node of 3, under 802.11g, cbrate of 10Mbps: \n";
+        a = experiment (false, 3, WIFI_PHY_STANDARD_80211g, false, "10Mbps");
+        result << "throughput: " << a << "\n";
+        std::cout << "------------------------------------------------\n";
+
+        std::cout << "no hidden terminal, sta node of 3, under 802.11g, cbrate of 20Mbps: \n" << std::flush;
+        result << "no hidden terminal, sta node of 3, under 802.11g, cbrate of 20Mbps: \n";
+        a = experiment (false, 3, WIFI_PHY_STANDARD_80211g, false, "20Mbps");
+        result << "throughput: " << a << "\n";
+        std::cout << "------------------------------------------------\n";
+
+
+        std::cout << "no hidden terminal, sta node of 3, under 802.11g, cbrate of 30Mbps: \n" << std::flush;
+        result << "no hidden terminal, sta node of 3, under 802.11g, cbrate of 30Mbps: \n";
+        a = experiment (false, 3, WIFI_PHY_STANDARD_80211g, false, "30Mbps");
+        result << "throughput: " << a << "\n";
+        std::cout << "------------------------------------------------\n";
+
+        std::cout << "no hidden terminal, sta node of 3, under 802.11g, cbrate of 40Mbps: \n" << std::flush;
+        result << "no hidden terminal, sta node of 3, under 802.11g, cbrate of 40Mbps: \n";
+        a = experiment (false, 3, WIFI_PHY_STANDARD_80211g, false, "40Mbps");
+        result << "throughput: " << a << "\n";
+        std::cout << "------------------------------------------------\n";
+
+        std::cout << "no hidden terminal, sta node of 3, under 802.11g, cbrate of 50Mbps: \n" << std::flush;
+        result << "no hidden terminal, sta node of 3, under 802.11g, cbrate of 50Mbps: \n";
+        a = experiment (false, 3, WIFI_PHY_STANDARD_80211g, false, "50Mbps");
+        result << "throughput: " << a << "\n";
+        std::cout << "------------------------------------------------\n";
+        result << "---------------------------------------------------\n";
+
+	std::cout << "no hidden terminal, sta node of 3, under 802.11n, cbrate of 10Mbps: \n" << std::flush;
+        result << "no hidden terminal, sta node of 3, under 802.11n, cbrate of 10Mbps: \n";
+        a = experiment (false, 3, WIFI_PHY_STANDARD_80211n_2_4GHZ, false, "10Mbps");
+        result << "throughput: " << a << "\n";
+        std::cout << "------------------------------------------------\n";
+
+        std::cout << "no hidden terminal, sta node of 3, under 802.11g, cbrate of 20Mbps: \n" << std::flush;
+        result << "no hidden terminal, sta node of 3, under 802.11g, cbrate of 20Mbps: \n";
+        a = experiment (false, 3, WIFI_PHY_STANDARD_80211n_2_4GHZ, false, "20Mbps");
+        result << "throughput: " << a << "\n";
+        std::cout << "------------------------------------------------\n";
+
+
+        std::cout << "no hidden terminal, sta node of 3, under 802.11n, cbrate of 30Mbps: \n" << std::flush;
+        result << "no hidden terminal, sta node of 3, under 802.11n, cbrate of 30Mbps: \n";
+        a = experiment (false, 3, WIFI_PHY_STANDARD_80211n_2_4GHZ, false, "30Mbps");
+        result << "throughput: " << a << "\n";
+        std::cout << "------------------------------------------------\n";
+
+        std::cout << "no hidden terminal, sta node of 3, under 802.11n, cbrate of 40Mbps: \n" << std::flush;
+        result << "no hidden terminal, sta node of 3, under 802.11n, cbrate of 40Mbps: \n";
+        a = experiment (false, 3, WIFI_PHY_STANDARD_80211n_2_4GHZ, false, "40Mbps");
+        result << "throughput: " << a << "\n";
+        std::cout << "------------------------------------------------\n";
+
+        std::cout << "no hidden terminal, sta node of 3, under 802.11n, cbrate of 50Mbps: \n" << std::flush;
+        result << "no hidden terminal, sta node of 3, under 802.11n, cbrate of 50Mbps: \n";
+        a = experiment (false, 3, WIFI_PHY_STANDARD_80211n_2_4GHZ, false, "50Mbps");
+        result << "throughput: " << a << "\n";
+        std::cout << "------------------------------------------------\n";
+        result << "---------------------------------------------------\n";
+
+	 std::cout << "have hidden terminal, sta node of 3, under 802.11a, cbrate of 10Mbps: \n" << std::flush;
+        result << "have hidden terminal, sta node of 3, under 802.11a, cbrate of 10Mbps: \n";
+        a = experiment (false, 3, WIFI_PHY_STANDARD_80211a, true, "10Mbps");
+        result << "throughput: " << a << "\n";
+        std::cout << "------------------------------------------------\n";
+
+        std::cout << "have hidden terminal, sta node of 3, under 802.11a, cbrate of 20Mbps: \n" << std::flush;
+        result << "have hidden terminal, sta node of 3, under 802.11a, cbrate of 20Mbps: \n";
+        a = experiment (false, 3, WIFI_PHY_STANDARD_80211a, true, "20Mbps");
+        result << "throughput: " << a << "\n";
+        std::cout << "------------------------------------------------\n";
+
+
+        std::cout << "have hidden terminal, sta node of 3, under 802.11a, cbrate of 30Mbps: \n" << std::flush;
+        result << "have hidden terminal, sta node of 3, under 802.11a, cbrate of 30Mbps: \n";
+        a = experiment (false, 3, WIFI_PHY_STANDARD_80211a, true, "30Mbps");
+        result << "throughput: " << a << "\n";
+        std::cout << "------------------------------------------------\n";
+
+        std::cout << "have hidden terminal, sta node of 3, under 802.11a, cbrate of 40Mbps: \n" << std::flush;
+        result << "have hidden terminal, sta node of 3, under 802.11a, cbrate of 40Mbps: \n";
+        a = experiment (false, 3, WIFI_PHY_STANDARD_80211a, true, "40Mbps");
+        result << "throughput: " << a << "\n";
+        std::cout << "------------------------------------------------\n";
+
+        std::cout << "have hidden terminal, sta node of 3, under 802.11a, cbrate of 50Mbps: \n" << std::flush;
+        result << "have hidden terminal, sta node of 3, under 802.11a, cbrate of 50Mbps: \n";
+        a = experiment (false, 3, WIFI_PHY_STANDARD_80211a, true, "50Mbps");
+        result << "throughput: " << a << "\n";
+        std::cout << "------------------------------------------------\n";
+        result << "---------------------------------------------------\n";
+
+        std::cout << "have hidden terminal, sta node of 3, under 802.11b, cbrate of 10Mbps: \n" << std::flush;
+        result << "have hidden terminal, sta node of 3, under 802.11b, cbrate of 10Mbps: \n";
+        a = experiment (false, 3, WIFI_PHY_STANDARD_80211b, true, "10Mbps");
+        result << "throughput: " << a << "\n";
+        std::cout << "------------------------------------------------\n";
+
+        std::cout << "have hidden terminal, sta node of 3, under 802.11b, cbrate of 20Mbps: \n" << std::flush;
+        result << "have hidden terminal, sta node of 3, under 802.11b, cbrate of 20Mbps: \n";
+        a = experiment (false, 3, WIFI_PHY_STANDARD_80211b, true, "20Mbps");
+        result << "throughput: " << a << "\n";
+        std::cout << "------------------------------------------------\n";
+
+
+        std::cout << "have hidden terminal, sta node of 3, under 802.11b, cbrate of 30Mbps: \n" << std::flush;
+        result << "have hidden terminal, sta node of 3, under 802.11b, cbrate of 30Mbps: \n";
+        a = experiment (false, 3, WIFI_PHY_STANDARD_80211b, true, "30Mbps");
+        result << "throughput: " << a << "\n";
+        std::cout << "------------------------------------------------\n";
+	
+	std::cout << "have hidden terminal, sta node of 3, under 802.11b, cbrate of 40Mbps: \n" << std::flush;
+        result << "have hidden terminal, sta node of 3, under 802.11b, cbrate of 40Mbps: \n";
+        a = experiment (false, 3, WIFI_PHY_STANDARD_80211b, true, "40Mbps");
+        result << "throughput: " << a << "\n";
+        std::cout << "------------------------------------------------\n";
+
+        std::cout << "have hidden terminal, sta node of 3, under 802.11b, cbrate of 50Mbps: \n" << std::flush;
+        result << "have hidden terminal, sta node of 3, under 802.11b, cbrate of 50Mbps: \n";
+        a = experiment (false, 3, WIFI_PHY_STANDARD_80211b, true, "50Mbps");
+        result << "throughput: " << a << "\n";
+        std::cout << "------------------------------------------------\n";
+        result << "---------------------------------------------------\n";
+
+        std::cout << "have hidden terminal, sta node of 3, under 802.11g, cbrate of 10Mbps: \n" << std::flush;
+        result << "have hidden terminal, sta node of 3, under 802.11g, cbrate of 10Mbps: \n";
+        a = experiment (false, 3, WIFI_PHY_STANDARD_80211g, true, "10Mbps");
+        result << "throughput: " << a << "\n";
+        std::cout << "------------------------------------------------\n";
+
+        std::cout << "have hidden terminal, sta node of 3, under 802.11g, cbrate of 20Mbps: \n" << std::flush;
+        result << "have hidden terminal, sta node of 3, under 802.11g, cbrate of 20Mbps: \n";
+        a = experiment (false, 3, WIFI_PHY_STANDARD_80211g, true, "20Mbps");
+        result << "throughput: " << a << "\n";
+        std::cout << "------------------------------------------------\n";
+
+	std::cout << "have hidden terminal, sta node of 3, under 802.11g, cbrate of 30Mbps: \n" << std::flush;
+        result << "have hidden terminal, sta node of 3, under 802.11g, cbrate of 30Mbps: \n";
+        a = experiment (false, 3, WIFI_PHY_STANDARD_80211g, true, "30Mbps");
+        result << "throughput: " << a << "\n";
+        std::cout << "------------------------------------------------\n";
+
+        std::cout << "have hidden terminal, sta node of 3, under 802.11g, cbrate of 40Mbps: \n" << std::flush;
+        result << "have hidden terminal, sta node of 3, under 802.11g, cbrate of 40Mbps: \n";
+        a = experiment (false, 3, WIFI_PHY_STANDARD_80211g, true, "40Mbps");
+        result << "throughput: " << a << "\n";
+        std::cout << "------------------------------------------------\n";
+
+        std::cout << "have hidden terminal, sta node of 3, under 802.11g, cbrate of 50Mbps: \n" << std::flush;
+        result << "have hidden terminal, sta node of 3, under 802.11g, cbrate of 50Mbps: \n";
+        a = experiment (false, 3, WIFI_PHY_STANDARD_80211g, true, "50Mbps");
+        result << "throughput: " << a << "\n";
+        std::cout << "------------------------------------------------\n";
+        result << "---------------------------------------------------\n";
+
+        std::cout << "have hidden terminal, sta node of 3, under 802.11n, cbrate of 10Mbps: \n" << std::flush;
+        result << "have hidden terminal, sta node of 3, under 802.11n, cbrate of 10Mbps: \n";
+        a = experiment (false, 3, WIFI_PHY_STANDARD_80211n_2_4GHZ, true, "10Mbps");
+        result << "throughput: " << a << "\n";
+        std::cout << "------------------------------------------------\n";
+
+	std::cout << "have hidden terminal, sta node of 3, under 802.11g, cbrate of 20Mbps: \n" << std::flush;
+        result << "have hidden terminal, sta node of 3, under 802.11g, cbrate of 20Mbps: \n";
+        a = experiment (false, 3, WIFI_PHY_STANDARD_80211n_2_4GHZ, true, "20Mbps");
+        result << "throughput: " << a << "\n";
+        std::cout << "------------------------------------------------\n";
+
+
+        std::cout << "have hidden terminal, sta node of 3, under 802.11n, cbrate of 30Mbps: \n" << std::flush;
+        result << "have hidden terminal, sta node of 3, under 802.11n, cbrate of 30Mbps: \n";
+        a = experiment (false, 3, WIFI_PHY_STANDARD_80211n_2_4GHZ, true, "30Mbps");
+        result << "throughput: " << a << "\n";
+        std::cout << "------------------------------------------------\n";
+
+        std::cout << "have hidden terminal, sta node of 3, under 802.11n, cbrate of 40Mbps: \n" << std::flush;
+        result << "have hidden terminal, sta node of 3, under 802.11n, cbrate of 40Mbps: \n";
+        a = experiment (false, 3, WIFI_PHY_STANDARD_80211n_2_4GHZ, true, "40Mbps");
+        result << "throughput: " << a << "\n";
+        std::cout << "------------------------------------------------\n";
+
+        std::cout << "have hidden terminal, sta node of 3, under 802.11n, cbrate of 50Mbps: \n" << std::flush;
+        result << "have hidden terminal, sta node of 3, under 802.11n, cbrate of 50Mbps: \n";
+        a = experiment (false, 3, WIFI_PHY_STANDARD_80211n_2_4GHZ, true, "50Mbps");
+        result << "throughput: " << a << "\n";
+        std::cout << "------------------------------------------------\n";
+
 	result << "---------------------------------------------------\n";
 	result << "---------------------------------------------------\n";
 
