@@ -67,7 +67,7 @@ double experiment (bool enableCtsRts, uint32_t numWifiSta, enum ns3::WifiPhyStan
                                                 "ControlMode",StringValue ("ErpOfdmRate54Mbps"));
   	Ssid ssid = Ssid("wifi-default");
 
-	if (standard == WIFI_PHY_STANDARD_80211n_2_4GHZ)
+	if (standard == WIFI_PHY_STANDARD_80211n_2_4GHZ)	// 802.11n has different mac layer than others, separating setting
 	{
 		HtWifiMacHelper wifiMac = HtWifiMacHelper::Default();
 		wifiMac.SetType ("ns3::StaWifiMac", "Ssid", SsidValue(ssid), "ActiveProbing", BooleanValue(false)); // use stawifi
@@ -76,18 +76,18 @@ double experiment (bool enableCtsRts, uint32_t numWifiSta, enum ns3::WifiPhyStan
         	wifiMac.SetType("ns3::ApWifiMac", "Ssid", SsidValue(ssid), "BeaconGeneration", BooleanValue(true));
         	NetDeviceContainer apDevices;
         	apDevices = wifi.Install(wifiPhy, wifiMac, wifiAPNodes);
-		
-		InternetStackHelper stack;
+
+		InternetStackHelper stack;	// install internet stack
         	stack.Install(wifiStaNodes);
         	stack.Install(wifiAPNodes);
 
-		Ipv4AddressHelper ipv4;
+		Ipv4AddressHelper ipv4;		// install ip on each node
         	ipv4.SetBase ("10.0.0.0", "255.0.0.0");
         	ipv4.Assign (staDevices);
         	ipv4.Assign(apDevices);
 	}
 	else
-	{
+	{					// normal mac layer installation
   		NqosWifiMacHelper wifiMac = NqosWifiMacHelper::Default();
 		wifiMac.SetType ("ns3::StaWifiMac", "Ssid", SsidValue(ssid), "ActiveProbing", BooleanValue(false)); // use stawifi
         	NetDeviceContainer staDevices;
@@ -95,25 +95,17 @@ double experiment (bool enableCtsRts, uint32_t numWifiSta, enum ns3::WifiPhyStan
         	wifiMac.SetType("ns3::ApWifiMac", "Ssid", SsidValue(ssid), "BeaconGeneration", BooleanValue(true));
         	NetDeviceContainer apDevices;
         	apDevices = wifi.Install(wifiPhy, wifiMac, wifiAPNodes);
-		
+						// install internet stack
 		InternetStackHelper stack;
         	stack.Install(wifiStaNodes);
         	stack.Install(wifiAPNodes);
-
+						// install ip address
 		Ipv4AddressHelper ipv4;
         	ipv4.SetBase ("10.0.0.0", "255.0.0.0");
         	ipv4.Assign (staDevices);
         	ipv4.Assign(apDevices);
 	}
 
-	/*
-  	wifiMac.SetType ("ns3::StaWifiMac", "Ssid", SsidValue(ssid), "ActiveProbing", BooleanValue(false)); // use stawifi
-  	NetDeviceContainer staDevices;
-  	staDevices = wifi.Install (wifiPhy, wifiMac, wifiStaNodes);
-  	wifiMac.SetType("ns3::ApWifiMac", "Ssid", SsidValue(ssid), "BeaconGeneration", BooleanValue(true));
-  	NetDeviceContainer apDevices;
-  	apDevices = wifi.Install(wifiPhy, wifiMac, wifiAPNodes);
-	*/
 
   	// Add mobility on AP node
   	MobilityHelper mobility;
@@ -122,8 +114,6 @@ double experiment (bool enableCtsRts, uint32_t numWifiSta, enum ns3::WifiPhyStan
   	mobility.Install(wifiAPNodes);
 
   	// Set STA mobility
-  	/*Ptr<UniformRandomVariable> rv = CreateObject<UniformRandomVariable>();
-	uniformed mobility model on a circle, no hidden terminal here, all within 50 meter circle */
 	if (!isHiddenTerminal)
   		mobility.SetPositionAllocator("ns3::UniformDiscPositionAllocator","X", StringValue("0.0"), "Y", StringValue("0.0"), "rho", StringValue("50.0"));
 	else
@@ -136,35 +126,13 @@ double experiment (bool enableCtsRts, uint32_t numWifiSta, enum ns3::WifiPhyStan
                                                "LayoutType", StringValue ("RowFirst"));		// row priority first
 	// put the nodes on a grid system model, make sure they are within AP transmission range but they are not able to overhear each other!!!!!!!!!!!!!!!!!!!!!!!!!!
 	// set grid system layout in this way, see what output it will get. propagation loss is 1 meter
-  	//// mobility.SetMobilityModel("ns3::ConstantPositionMobilityModel");
   	mobility.Install(wifiStaNodes);		// install STA node
-  	//// print locations
+  	// print locations
   	Ptr<MobilityModel> apmob = wifiAPNodes.Get(0)->GetObject<MobilityModel>();
-  	//Vector posap = apmob->GetPosition();
-  	//std::cout<<"AP cordinates: x = "<<posap.x<<", y = "<<posap.y<<"\n";
   	for (uint32_t k=0; k<numWifiSta; k++)
   	{
  		Ptr<MobilityModel> mob = wifiStaNodes.Get(k)->GetObject<MobilityModel>();
-  		//Vector pos = mob->GetPosition();
-  		//std::cout<<"Node "<<k<<" cordinates: x = "<<pos.x<<", y = "<<pos.y<<"\n";
   	}
-  	// Install protocol stack
-  	/*InternetStackHelper stack;
-  	stack.Install(wifiStaNodes);
-  	stack.Install(wifiAPNodes);*/
-  	// uncomment the following to have athstats output
-  	// AthstatsHelper athstats;
-  	// athstats.EnableAthstats(enableCtsRts ? "rtscts-athstats-node" : "basic-athstats-node" , nodes);
-
-  	// uncomment the following to have pcap output
-  	// wifiPhy.EnablePcap (enableCtsRts ? "rtscts-pcap-node" : "basic-pcap-node" , nodes);
-
-  	// 6. Install TCP/IP stack & assign IP addresses
-  	/*Ipv4AddressHelper ipv4;
-  	ipv4.SetBase ("10.0.0.0", "255.0.0.0");
-  	ipv4.Assign (staDevices);
-  	ipv4.Assign(apDevices);
-	*/
   	Ptr<Node> apn = wifiAPNodes.Get(0);
   	Ptr<Ipv4> ipv4add = apn->GetObject<Ipv4>();
   	Ipv4Address APaddr = ipv4add->GetAddress(1,0).GetLocal();
@@ -192,8 +160,6 @@ double experiment (bool enableCtsRts, uint32_t numWifiSta, enum ns3::WifiPhyStan
   	{
  	 	double randTime = randomStartTime(starttime);
          	double randEchoTime = randomStartTime(0.0);
-  	 	//std::cout<<"Random start time of flow "<<j+1<<" is: "<<randTime<<"\n";
-         	//std::cout<<"Echo random start time of flow "<<j+1<<" is: "<<randEchoTime<<"\n";
   	 	onOffHelper.SetAttribute ("DataRate", cbrate);
    	 	onOffHelper.SetAttribute ("StartTime", TimeValue (Seconds (randTime)));
   	 	cbrApps.Add (onOffHelper.Install (wifiStaNodes.Get(j)));
@@ -217,13 +183,12 @@ double experiment (bool enableCtsRts, uint32_t numWifiSta, enum ns3::WifiPhyStan
 	// int p = 0;
   	for (std::map<FlowId, FlowMonitor::FlowStats>::const_iterator i = stats.begin (); i != stats.end (); ++i)
     	{
-      		//// first 2 FlowIds are for ECHO apps, we don't want to display them
-      		//
-      		//// Duration for throughput measurement is 9.0 seconds, since
-      		//// StartTime of the OnOffApplication is at about "second 1"
-      		//// and
-      		//// Simulator::Stops at "second 10".
-     		//// double totalThroughput = 0.0;
+      		// first 2 FlowIds are for ECHO apps, we don't want to display them
+      		// Duration for throughput measurement is 9.0 seconds, since
+      		// StartTime of the OnOffApplication is at about "second 1"
+      		// and
+      		// Simulator::Stops at "second 10".
+     		// double totalThroughput = 0.0;
       		if (i->first > numWifiSta)
         	{
           		Ipv4FlowClassifier::FiveTuple t = classifier->FindFlow (i->first);
@@ -238,7 +203,7 @@ double experiment (bool enableCtsRts, uint32_t numWifiSta, enum ns3::WifiPhyStan
         	}
     	}
   	std::cout<<"Total throughput: "<<totalThroughput<<" Mbps\n";
-  	//// 11. Cleanup
+  	// 11. Cleanup
   	Simulator::Destroy ();
 	return totalThroughput;
 }
@@ -256,14 +221,10 @@ double randomStartTime(double seed)
 int main (int argc, char **argv)
 {
 
-	// FileHelper fileHelper;
-	// fileHelper.ConfigureFile ("project-result-count",FileAggregator::FORMATTED);
-	// Set the labels for this formatted output file.
-	// fileHelper.Set2dFormat ("No.of Nodes: %d\tThroughput: %.3f");
 	std::ofstream result;
 	result.open ("result.txt");
 	if (result.is_open())
-		std::cout << "file is open\n";
+		std::cout << "start logging process on result.txt\n";
 	double a;
 
 	std::cout << "no hidden terminal, sta node of 1, under 802.11a, cbrate of 20Mbps, explore saturation: \n" << std::flush;
@@ -383,7 +344,7 @@ int main (int argc, char **argv)
         std::cout << "------------------------------------------------\n";
 
 	result << "---------------------------------------------------\n";
-	
+
 	std::cout << "no hidden terminal, sta node of 3, under 802.11g, cbrate of 20Mbps: \n" << std::flush;
         result << "no hidden terminal, sta node of 3, under 802.11g, cbrate of 20Mbps: \n";
         a = experiment (false, 3, WIFI_PHY_STANDARD_80211g, false, "20Mbps");
@@ -513,7 +474,7 @@ int main (int argc, char **argv)
         a = experiment (false, 12, WIFI_PHY_STANDARD_80211g, true, "20Mbps");
         result << "throughput: " << a << "\n";
         std::cout << "------------------------------------------------\n";
-  
+
 	result << "---------------------------------------------------\n";
 
 	std::cout << "have hidden terminal, sta node of 3, under 802.11n cbrate of 20Mbps: \n" << std::flush;
@@ -723,7 +684,7 @@ int main (int argc, char **argv)
         a = experiment (false, 3, WIFI_PHY_STANDARD_80211b, true, "30Mbps");
         result << "throughput: " << a << "\n";
         std::cout << "------------------------------------------------\n";
-	
+
 	std::cout << "have hidden terminal, sta node of 3, under 802.11b, cbrate of 40Mbps: \n" << std::flush;
         result << "have hidden terminal, sta node of 3, under 802.11b, cbrate of 40Mbps: \n";
         a = experiment (false, 3, WIFI_PHY_STANDARD_80211b, true, "40Mbps");
