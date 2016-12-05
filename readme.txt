@@ -2,4 +2,6 @@ wireless-project.cc is the only program used in the project. A mega-function is 
 
 Throughput is written in a .txt file in case terminal output is lost. the .txt file lists current wifi standard, number of nodes and the resulting throughput.
 
+Members: Suranga Handalaga, Bowei Yu, Yichen Cheng
+
 
